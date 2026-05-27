@@ -21,7 +21,6 @@ body{
     color:white;
 }
 
-/* HERO */
 header{
     height:100vh;
     display:flex;
@@ -34,7 +33,6 @@ header{
     overflow:hidden;
 }
 
-/* glowing background effect */
 header::before{
     content:"";
     position:absolute;
@@ -60,13 +58,28 @@ header::after{
 }
 
 .profile{
-    <div class="profile">
-  <img src="profile.jpg" alt="Fhilmar Llamera" width="110" height="110" style="border-radius:50%; object-fit:cover;">
-</div>
+    width:120px;
+    height:120px;
+    border-radius:50%;
+    background:transparent;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow: 0 0 25px #ff4fd8;
+    z-index:10;
+    overflow:hidden;
+    border: 3px solid #ffffff;
+}
+
+.profile.jpg{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
 
 h1{
     font-size:3rem;
-    margin-top:15px;
+    margin-top:20px;
     z-index:1;
 }
 
@@ -93,8 +106,8 @@ header p{
 }
 
 .btn{
-    margin-top:20px;
-    padding:12px 25px;
+    margin-top:25px;
+    padding:12px 30px;
     background:#ff4fd8;
     color:white;
     border-radius:30px;
@@ -103,6 +116,7 @@ header p{
     box-shadow:0 0 20px #ff4fd8;
     transition:0.3s;
     z-index:1;
+    border:none;
 }
 
 .btn:hover{
@@ -110,7 +124,6 @@ header p{
     box-shadow:0 0 30px #ff4fd8;
 }
 
-/* NAV */
 nav{
     position:sticky;
     top:0;
@@ -134,7 +147,6 @@ nav a:hover{
     color:#ff4fd8;
 }
 
-/* SECTIONS */
 section{
     max-width:900px;
     margin:50px auto;
@@ -171,7 +183,6 @@ h2{
     border-left:3px solid #ff4fd8;
 }
 
-/* FOOTER */
 footer{
     text-align:center;
     padding:20px;
@@ -186,7 +197,9 @@ footer{
 <body>
 
 <header>
-    <div class="profile">FL</div>
+    <div class="profile">
+        <img src="profile.jpg" alt="Fhilmar Llamera">
+    </div>
     <h1>Fhilmar Llamera</h1>
 
     <div class="typing-container">
@@ -208,7 +221,8 @@ footer{
 <section id="objective">
     <h2>Career Objective</h2>
     <p>
-        "Aspiring IT professional looking for an opportunity to grow and utilize my skills in HTML, CSS, JavaScript, and technical support. Committed to delivering quality work and helping the team achieve its goals."
+        "Aspiring IT professional looking for an opportunity to grow and use my knowledge in HTML, CSS, JavaScript, and computer systems. Committed to delivering quality work and helping the team achieve its goals."
+</section>
 
 <section id="education">
     <h2>Education</h2>
@@ -222,14 +236,14 @@ footer{
 <section id="experience">
     <h2>Experience</h2>
     <div class="card">
-        TESDA CSS - Assisted in troubleshooting systems and software installation.
+        Tesda Css - Assisted in troubleshooting systems and software installation.
     </div>
 </section>
 
 <section id="skills">
     <h2>Skills</h2>
     <div class="card">
-         • CSS • Teamwork • Troubleshooting • MS Office • Teamwork
+         • CSS • Teamwork• Troubleshooting • MS Office • Teamwork
     </div>
 </section>
 
@@ -247,7 +261,57 @@ footer{
 </footer>
 
 <script>
-// typing animation
 const words = [
     "IT Student...",
-    "Fut
+    "Future Web Developer...",
+    "UI Designer...",
+    "Problem Solver..."
+];
+
+let i = 0;
+let j = 0;
+let current = "";
+let deleting = false;
+
+function type(){
+    current = words[i];
+
+    if(!deleting){
+        document.getElementById("typed").textContent = current.substring(0,j++);
+        if(j > current.length){
+            deleting = true;
+            setTimeout(type, 1000);
+            return;
+        }
+    } else {
+        document.getElementById("typed").textContent = current.substring(0,j--);
+        if(j < 0){
+            deleting = false;
+            i = (i+1) % words.length;
+        }
+    }
+
+    setTimeout(type, deleting ? 60 : 90);
+}
+
+type();
+
+function downloadResume(){
+    const text = `
+Fhilmar Llamera
+BS Information Technology
+
+Skills:  CSS, Teamwork
+Objective: Entry-level IT position
+    `;
+
+    const blob = new Blob([text], {type:"text/plain"});
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Fhilmar_Llamera_CV.txt";
+    a.click();
+}
+</script>
+
+</body>
+</html>
